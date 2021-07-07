@@ -62,7 +62,6 @@ int main(int argc, char *argv[])
             exit(1);
         }
     
-        
         FILE *fp = open_db_file();
         list(fp);
         fclose(fp);
@@ -179,7 +178,7 @@ entry *load_entries(FILE *fp)
     [^,\n] Square brackets are used to indicate a set of allowed
     characters [abc] means only a, b, or c. With the ^, it's
     used to specify a set of disallowed characters. So [^abc]
-    means any character except a, b, or c. [^,] means any
+    means any character *except* a, b, or c. [^,] means any
     character except a , [^,\n] means any character except a
     comma(,) or a newline(\n).
     %20[^,\n] will match a string of characters with a maximum length
@@ -241,7 +240,7 @@ int delete(FILE *db_file, char *name)
     entry *p = load_entries(db_file);
     entry *base = p;
     entry *prev = NULL;
-    entry del = NULL ; / Node to be deleted */
+    entry *del = NULL ; /* Node to be deleted */
     int deleted = 0;
     while(p!=NULL) 
     {
@@ -269,12 +268,14 @@ int delete(FILE *db_file, char *name)
         p = p->next;
     }
 
+
     write_all_entries(base);
     free_entries(base);
     return deleted;
 }
 
 int search(FILE *db_file, char *name)
+
 {
     entry *p = load_entries(db_file);
     entry *base = p;
@@ -289,6 +290,8 @@ int search(FILE *db_file, char *name)
         }
         
         p = p->next;
+
+
     }
 
     free_entries(base);
