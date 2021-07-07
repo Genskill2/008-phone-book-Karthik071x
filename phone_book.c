@@ -62,6 +62,7 @@ int main(int argc, char *argv[])
             exit(1);
         }
     
+        
         FILE *fp = open_db_file();
         list(fp);
         fclose(fp);
